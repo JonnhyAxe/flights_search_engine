@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
 /**
- * ToughJet Fligh tResponse
+ * ToughJet Flight Response
  */
 public class ToughJetFlightResponse extends ToughJetFlighTimeInterval implements Serializable {
 

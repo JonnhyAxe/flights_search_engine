@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.busyflights.search_engine.services.BusyFlightsService;
+import com.busyflights.search_engine.services.interfaces.OrderedBusyFlightsService;
 import com.busyflights.search_engine.web.domain.BusyFlightsRequest;
 import com.busyflights.search_engine.web.domain.BusyFlightsResponse;
 
@@ -22,15 +22,15 @@ import com.busyflights.search_engine.web.domain.BusyFlightsResponse;
  *
  */
 @RestController
-@RequestMapping("/busyflights")
+@RequestMapping("/busy-flights")
 public class BusyFlightsController {
 
     private static final String DATA_PATTERN = "^(0[0-9]||1[0-2])-([0-2][0-9]||3[0-1])-([0-9][0-9])?[0-9][0-9]$";
 
     @Autowired
-    private BusyFlightsService busyFlightsService;
+    private OrderedBusyFlightsService busyFlightsService;
 
-    @RequestMapping(value = "/flights", method = RequestMethod.POST, params = {"origin", "destination", "departureDate", "returnDate", "numberOfPassengers" })
+    @RequestMapping(value = "/flights", method = RequestMethod.GET, params = { "origin", "destination", "departureDate", "returnDate", "numberOfPassengers" })
     @ResponseBody
     public List<BusyFlightsResponse> searchCrazyFlights(@RequestParam
             @Size(min = 3, max = 3)

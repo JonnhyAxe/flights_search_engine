@@ -10,7 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * Busy Flights API Response Model
  *
  */
-public class BusyFlightsResponse {
+public class BusyFlightsResponse implements Comparable<BusyFlightsResponse> {
 
 
     public static final class Builder {
@@ -29,7 +29,7 @@ public class BusyFlightsResponse {
 
         private String arrivalDate;
 
-        private Builder() {
+        public Builder() {
         }
 
         public BusyFlightsResponse build() {
@@ -358,5 +358,17 @@ public class BusyFlightsResponse {
         long tmp = Math.round(value);
         return (double) tmp / factor;
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(BusyFlightsResponse o) {
+
+        return this.fare.compareTo(o.getFare());
+    }
+
 
 }
