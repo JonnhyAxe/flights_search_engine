@@ -24,7 +24,7 @@ public class BusyFlightsRequest {
 
         private Integer numberOfPassengers;
 
-        private Builder() {
+        public Builder() {
         }
 
         public BusyFlightsRequest build() {
