@@ -10,7 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * Busy Flight Request Domain Model
  *
  */
-public class BusyFlightRequest {
+public class BusyFlightsRequest {
 
     public static final class Builder {
 
@@ -27,9 +27,9 @@ public class BusyFlightRequest {
         private Builder() {
         }
 
-        public BusyFlightRequest build() {
+        public BusyFlightsRequest build() {
 
-            return new BusyFlightRequest(this);
+            return new BusyFlightsRequest(this);
         }
 
         public Builder origin(String origin) {
@@ -80,10 +80,10 @@ public class BusyFlightRequest {
     @Range(min = 1, max = 4)
     private Integer numberOfPassengers;
 
-    public BusyFlightRequest() {
+    public BusyFlightsRequest() {
     }
 
-    private BusyFlightRequest(Builder builder) {
+    private BusyFlightsRequest(Builder builder) {
         this.origin = builder.origin;
         this.destination = builder.destination;
         this.departureDate = builder.departureDate;
@@ -211,7 +211,7 @@ public class BusyFlightRequest {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        BusyFlightRequest other = (BusyFlightRequest) obj;
+        BusyFlightsRequest other = (BusyFlightsRequest) obj;
         if (departureDate == null) {
             if (other.departureDate != null) {
                 return false;
