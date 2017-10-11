@@ -7,7 +7,7 @@ package com.busyflights.search_engine.web.domain.enums;
  */
 public enum Suppliers {
 
-    CRAZY_AIR("CrazyAir"), TOUGH_JET("ToughJet");
+    CRAZY_AIR("Crazy Air"), TOUGH_JET("Tough Jet");
 
     private String supplierName;
 

@@ -1,7 +1,7 @@
 package com.busyflights.search_engine.utils;
 
 /**
- * <class description>
+ * Date Contants
  *
  */
 public final class DateUitls {

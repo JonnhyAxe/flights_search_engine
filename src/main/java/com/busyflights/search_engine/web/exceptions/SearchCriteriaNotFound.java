@@ -8,7 +8,7 @@ package com.busyflights.search_engine.web.exceptions;
 public class SearchCriteriaNotFound extends RuntimeException {
 
     /**
-     *
+     * Search Criteria Not Found
      */
     private static final long serialVersionUID = -3746929043353775316L;
 

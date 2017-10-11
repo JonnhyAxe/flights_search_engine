@@ -19,7 +19,7 @@ import com.busyflights.search_engine.services.suppliers.crazy_air.domain.CrazyAi
 import com.busyflights.search_engine.services.suppliers.crazy_air.service.CrazyAirService;
 
 @RestController
-@RequestMapping("/crazyair")
+@RequestMapping("/crazy-air") // hyphens are OK
 public class CrazyAirController {
 
     /**
