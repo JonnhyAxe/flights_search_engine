@@ -7,6 +7,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.busyflights.search_engine.services.suppliers.crazy_air.domain.enums.CabinClass;
+
 /**
  * Crazy Air Response Domain Model
  */
@@ -23,12 +25,13 @@ public class CrazyAirResponse implements Serializable {
 
         private Double price;
 
-        private String cabinclass;
+        private CabinClass cabinclass;
 
         private String departureAirportCode;
 
         private String destinationAirportCode;
 
+        // mm-dd-yyyy HH:MM:ss
         private String departureDate;
 
         private String arrivalDate;
@@ -53,7 +56,7 @@ public class CrazyAirResponse implements Serializable {
             return this;
         }
 
-        public Builder cabinclass(String cabinclass) {
+        public Builder cabinclass(CabinClass cabinclass) {
 
             this.cabinclass = cabinclass;
             return this;
@@ -120,7 +123,7 @@ public class CrazyAirResponse implements Serializable {
     private CrazyAirResponse(Builder builder) {
         this.airline = builder.airline;
         this.price = builder.price;
-        this.cabinclass = builder.cabinclass;
+        this.cabinclass = builder.cabinclass.name();
         this.departureAirportCode = builder.departureAirportCode;
         this.destinationAirportCode = builder.destinationAirportCode;
         this.departureDate = builder.departureDate;
