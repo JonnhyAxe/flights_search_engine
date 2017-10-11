@@ -3,6 +3,8 @@ package com.busyflights.search_engine.services.interfaces;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,6 +23,7 @@ import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightRes
 import com.busyflights.search_engine.web.domain.BusyFlightsRequest;
 import com.busyflights.search_engine.web.domain.BusyFlightsResponse;
 import com.busyflights.search_engine.web.domain.enums.Suppliers;
+
 /**
  * Ordered Busy Flights Service Implementation for Crazy-Air Tough-Jet Suppliers
  *
@@ -109,22 +113,34 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
     @Override
     public List<BusyFlightsResponse> searchBusyFlights(BusyFlightsRequest searchRequest) {
 
-        List<CrazyAirResponse> crazyAirResponse = getCrazyAirFlights(searchRequest);
-        List<ToughJetFlightResponse> toughJetAirResponse = getToughJetFlights(searchRequest);
+        List<BusyFlightsResponse> result = Collections.emptyList();
+        CompletableFuture<List<CrazyAirResponse>> crazyAirResponse;
+        try {
+            crazyAirResponse = getAsyncCrazyAirFlights(searchRequest);
 
-        List<BusyFlightsResponse> busyFlightsResponseFromAirResponse = crazyAirResponse.stream()
-                .map(convertCrazyAirToBusyFlights).collect(Collectors.toList());
+            CompletableFuture<List<ToughJetFlightResponse>> toughJetAirResponse = getAsyncToughJetFlights(searchRequest);
+
+            // https://spring.io/guides/gs/async-method/
+            // Wait until they are all done
+            CompletableFuture.allOf(crazyAirResponse, toughJetAirResponse).join();
+
+            List<BusyFlightsResponse> busyFlightsResponseFromAirResponse = crazyAirResponse.get().stream()
+                    .map(convertCrazyAirToBusyFlights).collect(Collectors.toList());
 
 
-        List<BusyFlightsResponse> busyFlightsResponseFromToughResponse = toughJetAirResponse.stream()
-                .map(convertToughJetToBusyFlights)
-                .collect(Collectors.toList());
+            List<BusyFlightsResponse> busyFlightsResponseFromToughResponse = toughJetAirResponse.get().stream()
+                    .map(convertToughJetToBusyFlights)
+                    .collect(Collectors.toList());
 
 
-        List<BusyFlightsResponse> result = new ArrayList<>(crazyAirResponse.size() + toughJetAirResponse.size());
-        result.addAll(busyFlightsResponseFromAirResponse);
-        result.addAll(busyFlightsResponseFromToughResponse);
-        Collections.sort(result);
+            result = new ArrayList<>(crazyAirResponse.get().size() + toughJetAirResponse.get().size());
+            result.addAll(busyFlightsResponseFromAirResponse);
+            result.addAll(busyFlightsResponseFromToughResponse);
+            Collections.sort(result);
+        }
+        catch (InterruptedException | ExecutionException ex) {
+            ex.printStackTrace();
+        }
         return result;
     }
 
@@ -143,6 +159,12 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
         return allFlights;
     }
 
+    @Async
+    public CompletableFuture<List<CrazyAirResponse>> getAsyncCrazyAirFlights(BusyFlightsRequest searchRequest) throws InterruptedException {
+
+        return CompletableFuture.completedFuture(getCrazyAirFlights(searchRequest));
+    }
+
     private List<CrazyAirResponse> getCrazyAirFlights(BusyFlightsRequest searchRequest) {
 
         String getUrlEntityWithParameters = appendReqParamsToURL.apply(searchRequest, this.crazyairUrl);
@@ -152,6 +174,12 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
                     });
 
         return rateResponse.getBody();
+    }
+
+    @Async
+    public CompletableFuture<List<ToughJetFlightResponse>> getAsyncToughJetFlights(BusyFlightsRequest searchRequest) throws InterruptedException {
+
+        return CompletableFuture.completedFuture(getToughJetFlights(searchRequest));
     }
 
     private List<ToughJetFlightResponse> getToughJetFlights(BusyFlightsRequest searchRequest) {
