@@ -19,7 +19,7 @@ import com.busyflights.search_engine.services.suppliers.crazy_air.domain.CrazyAi
 import com.busyflights.search_engine.services.suppliers.crazy_air.service.CrazyAirService;
 
 @RestController
-@RequestMapping("/crazy-air")
+@RequestMapping("/crazyair")
 public class CrazyAirController {
 
     /**

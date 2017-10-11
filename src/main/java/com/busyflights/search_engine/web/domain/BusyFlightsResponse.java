@@ -243,6 +243,8 @@ public class BusyFlightsResponse {
         this.arrivalDate = arrivalDate;
     }
 
+
+
     /*
      * (non-Javadoc)
      *
@@ -281,7 +283,11 @@ public class BusyFlightsResponse {
             return false;
         }
         BusyFlightsResponse other = (BusyFlightsResponse) obj;
-        if (airline == null) {
+
+        if (!super.equals(other)) {
+            return false;
+        }
+        else if (airline == null) {
             if (other.airline != null) {
                 return false;
             }
