@@ -1,5 +1,6 @@
 package com.busyflights.search_engine.services.suppliers.crazy_air.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -24,8 +25,7 @@ public class CrazyAirServiceBean implements CrazyAirService {
     @Override
     public List<CrazyAirResponse> searchCrazyFlights(CrazyAirRequest crazyAirRequest) {
 
-        // TODO Auto-generated method stub
-        return null;
+        return Collections.emptyList();
     }
 
 }
