@@ -1,11 +1,13 @@
 package com.busyflights.search_engine.services.tough_jet.controller;
 
+import static com.busyflights.search_engine.utils.DateUitls.MAX_DAY;
 import static com.busyflights.search_engine.utils.DateUitls.MINIMUM_DAY;
 import static com.busyflights.search_engine.utils.DateUitls.MINIMUM_MONTH;
 import static com.busyflights.search_engine.utils.DateUitls.MINIMUM_YEAR;
 
 import java.util.List;
 
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Range;
@@ -37,7 +39,7 @@ public class ToughJetController {
             @Size(min = 3, max = 3)
             final String to,
             @RequestParam
-            @Range(min = MINIMUM_DAY, max = MINIMUM_YEAR)
+            @Range(min = MINIMUM_DAY, max = MAX_DAY)
             final int departureDay,
             @RequestParam
             @Range(min = MINIMUM_MONTH, max = MINIMUM_MONTH)
@@ -46,13 +48,16 @@ public class ToughJetController {
             @Range(min = MINIMUM_YEAR, max = Integer.MAX_VALUE)
             final int departureYear,
             @RequestParam
-            @Range(min = MINIMUM_DAY, max = MINIMUM_YEAR)
+            @Range(min = MINIMUM_DAY, max = MAX_DAY)
+            @Null
             final int returnDay,
             @RequestParam
             @Range(min = MINIMUM_MONTH, max = MINIMUM_MONTH)
+            @Null
             final int returnMonth,
             @RequestParam
             @Range(min = MINIMUM_YEAR, max = Integer.MAX_VALUE)
+            @Null
             final int returnYear,
             @RequestParam
             @Range(min = 1, max = 4)

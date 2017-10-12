@@ -1,5 +1,8 @@
 package com.busyflights.search_engine.services.interfaces;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 import com.busyflights.search_engine.services.suppliers.crazy_air.domain.CrazyAirResponse;
 import com.busyflights.search_engine.services.suppliers.enums.BusyFlightsAPIParams;
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightResponse;
+import com.busyflights.search_engine.services.utils.DateHelpers;
 import com.busyflights.search_engine.web.domain.BusyFlightsRequest;
 import com.busyflights.search_engine.web.domain.BusyFlightsResponse;
 import com.busyflights.search_engine.web.domain.enums.Suppliers;
@@ -48,6 +52,11 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
      */
     private static final String QUERY_PARAM = "?";
 
+    /**
+    *
+    */
+    private static final String AND_PARAM = "&";
+
     @Value("${crazyair.url}")
     private String crazyairUrl;
 
@@ -57,18 +66,49 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
     @Value("${providers.timeout}")
     private long providersTimeout;
 
-    BiFunction<BusyFlightsRequest, String, String> appendReqParamsToURL = (busyFlightsReq, urlStr) -> {
+    BiFunction<BusyFlightsRequest, String, String> appendReqParamsToCrazyAirURL = (busyFlightsReq, urlStr) -> {
 
         // considering that the url is correct
-        StringBuilder urlEntity = new StringBuilder();
+        StringBuilder urlEntity = new StringBuilder(urlStr);
         urlEntity.append(QUERY_PARAM)
-                .append(BusyFlightsAPIParams.FROM).append(SIGN_PARAM).append(busyFlightsReq.getOrigin())
-                .append(BusyFlightsAPIParams.TO).append(SIGN_PARAM).append(busyFlightsReq.getDestination())
-                .append(BusyFlightsAPIParams.DEPARTURE_DATE).append(SIGN_PARAM).append(busyFlightsReq.getDepartureDate())
-                .append(BusyFlightsAPIParams.RETURN_DATE).append(SIGN_PARAM).append(busyFlightsReq.getReturnDate())
-                .append(BusyFlightsAPIParams.NUMBER_OF_ADULTS).append(SIGN_PARAM).append(busyFlightsReq.getNumberOfPassengers());
+                .append(BusyFlightsAPIParams.ORIGIN.getName()).append(SIGN_PARAM).append(busyFlightsReq.getOrigin()).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.DESTINATION.getName()).append(SIGN_PARAM).append(busyFlightsReq.getDestination()).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.DEPARTURE_DATE.getName()).append(SIGN_PARAM).append(busyFlightsReq.getDepartureDate()).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.RETURN_DATE.getName()).append(SIGN_PARAM).append(busyFlightsReq.getReturnDate()).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.NUMBER_OF_PASSENGERS.getName()).append(SIGN_PARAM).append(busyFlightsReq.getNumberOfPassengers());
         return urlEntity.toString();
     };
+
+    BiFunction<BusyFlightsRequest, String, String> appendReqParamsToToughJetURL = (busyFlightsReq, urlStr) -> {
+
+        // considering that the url is correct
+
+        StringBuilder urlEntity = new StringBuilder(urlStr);
+
+        LocalDate departureLocalDate = DateHelpers.getLocalDateFromStringInISO8601(busyFlightsReq.getDepartureDate());
+        LocalDate returnLocalDate = DateHelpers.getLocalDateFromStringInISO8601(busyFlightsReq.getReturnDate());
+
+
+        Integer departureDay = departureLocalDate.getDayOfMonth();
+        Integer departureMonth = departureLocalDate.getMonthValue();
+        Integer departureYear = departureLocalDate.getYear();
+        Integer returnedDay = returnLocalDate.getDayOfMonth();
+        Integer returnedMonth = returnLocalDate.getMonthValue();
+        Integer returnedYear = returnLocalDate.getYear();
+
+        urlEntity.append(QUERY_PARAM)
+                .append(BusyFlightsAPIParams.FROM.getName()).append(SIGN_PARAM).append(busyFlightsReq.getOrigin()).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.TO.getName()).append(SIGN_PARAM).append(busyFlightsReq.getDestination()).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.DEPARTURE_DAY.getName()).append(SIGN_PARAM).append(departureDay).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.DEPARTURE_MONTH.getName()).append(SIGN_PARAM).append(departureMonth).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.DEPARTURE_YEAR.getName()).append(SIGN_PARAM).append(departureYear).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.RETURN_DAY.getName()).append(SIGN_PARAM).append(returnedDay).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.RETURN_MONTH.getName()).append(SIGN_PARAM).append(returnedMonth).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.RETURN_YEAR.getName()).append(SIGN_PARAM).append(returnedYear).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.NUMBER_OF_ADULTS.getName()).append(SIGN_PARAM).append(busyFlightsReq.getNumberOfPassengers());
+        return urlEntity.toString();
+    };
+
 
     Function<CrazyAirResponse, BusyFlightsResponse> convertCrazyAirToBusyFlights = (crazy) -> {
 
@@ -114,14 +154,12 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
     public List<BusyFlightsResponse> searchBusyFlights(BusyFlightsRequest searchRequest) {
 
         List<BusyFlightsResponse> result = Collections.emptyList();
-        CompletableFuture<List<CrazyAirResponse>> crazyAirResponse;
+
         try {
-            crazyAirResponse = getAsyncCrazyAirFlights(searchRequest);
+            CompletableFuture<List<CrazyAirResponse>> crazyAirResponse = getAsyncCrazyAirFlights(searchRequest);
 
             CompletableFuture<List<ToughJetFlightResponse>> toughJetAirResponse = getAsyncToughJetFlights(searchRequest);
 
-            // https://spring.io/guides/gs/async-method/
-            // Wait until they are all done
             CompletableFuture.allOf(crazyAirResponse, toughJetAirResponse).join();
 
             List<BusyFlightsResponse> busyFlightsResponseFromAirResponse = crazyAirResponse.get().stream()
@@ -132,8 +170,8 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
                     .map(convertToughJetToBusyFlights)
                     .collect(Collectors.toList());
 
-
             result = new ArrayList<>(crazyAirResponse.get().size() + toughJetAirResponse.get().size());
+
             result.addAll(busyFlightsResponseFromAirResponse);
             result.addAll(busyFlightsResponseFromToughResponse);
             Collections.sort(result);
@@ -167,13 +205,25 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
 
     private List<CrazyAirResponse> getCrazyAirFlights(BusyFlightsRequest searchRequest) {
 
-        String getUrlEntityWithParameters = appendReqParamsToURL.apply(searchRequest, this.crazyairUrl);
-        ResponseEntity<List<CrazyAirResponse>> rateResponse =
-                new RestTemplate().exchange(getUrlEntityWithParameters,
+        List<CrazyAirResponse> result = null;
+        ResponseEntity<List<CrazyAirResponse>> rateResponse = null;
+        String getUrlEntityWithParameters = appendReqParamsToCrazyAirURL.apply(searchRequest, this.crazyairUrl);
+        try {
+            URLEncoder.encode(getUrlEntityWithParameters, "UTF-8");
+            rateResponse = new RestTemplate().exchange(getUrlEntityWithParameters,
                             HttpMethod.GET, null, new ParameterizedTypeReference<List<CrazyAirResponse>>() {
                     });
 
-        return rateResponse.getBody();
+            result = rateResponse.getBody();
+
+        }
+        catch (UnsupportedEncodingException | org.springframework.web.client.HttpClientErrorException ex) {
+            // TODO Auto-generated catch block
+            ex.printStackTrace();
+            result = Collections.emptyList();
+        }
+
+        return result;
     }
 
     @Async
@@ -184,7 +234,7 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
 
     private List<ToughJetFlightResponse> getToughJetFlights(BusyFlightsRequest searchRequest) {
 
-        String getUrlEntityWithParameters = appendReqParamsToURL.apply(searchRequest, this.toughjetUrl);
+        String getUrlEntityWithParameters = appendReqParamsToToughJetURL.apply(searchRequest, this.toughjetUrl);
 
         ResponseEntity<List<ToughJetFlightResponse>> rateResponse = new RestTemplate().exchange(getUrlEntityWithParameters,
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<ToughJetFlightResponse>>() {

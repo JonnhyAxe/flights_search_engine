@@ -9,7 +9,7 @@ import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightReq
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightResponse;
 
 /**
- * <class description>
+ * Tough Jet Service Bean implementation
  *
  */
 @Service
