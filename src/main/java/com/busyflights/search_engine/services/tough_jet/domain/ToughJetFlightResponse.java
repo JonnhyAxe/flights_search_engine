@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.Range;
 public class ToughJetFlightResponse extends ToughJetFlighTimeInterval implements Serializable {
 
     /**
-     *
+     * 
      */
     private static final long serialVersionUID = -4825746715130880364L;
 
@@ -31,7 +31,7 @@ public class ToughJetFlightResponse extends ToughJetFlighTimeInterval implements
 
         private String arrivalAirportName;
 
-        private Builder() {
+        public Builder() {
         }
 
         public ToughJetFlightResponse build(ToughJetFlighTimeInterval.Builder timeBuilder) {

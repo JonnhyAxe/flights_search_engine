@@ -36,7 +36,7 @@ public class CrazyAirResponse implements Serializable {
 
         private String arrivalDate;
 
-        private Builder() {
+        public Builder() {
         }
 
         public CrazyAirResponse build() {

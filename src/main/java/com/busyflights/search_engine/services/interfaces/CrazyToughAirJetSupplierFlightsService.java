@@ -23,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 import com.busyflights.search_engine.services.suppliers.crazy_air.domain.CrazyAirResponse;
 import com.busyflights.search_engine.services.suppliers.enums.BusyFlightsAPIParams;
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightResponse;
-import com.busyflights.search_engine.services.utils.DateHelpers;
+import com.busyflights.search_engine.utils.DateUitls;
 import com.busyflights.search_engine.web.domain.BusyFlightsRequest;
 import com.busyflights.search_engine.web.domain.BusyFlightsResponse;
 import com.busyflights.search_engine.web.domain.enums.Suppliers;
@@ -38,7 +38,7 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
 
 
     /**
-     *
+     * TODO: check if constants are difined in spring framework
      */
     private static final String HYPHEN = "-";
 
@@ -85,8 +85,8 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
 
         StringBuilder urlEntity = new StringBuilder(urlStr);
 
-        LocalDate departureLocalDate = DateHelpers.getLocalDateFromStringInISO8601(busyFlightsReq.getDepartureDate());
-        LocalDate returnLocalDate = DateHelpers.getLocalDateFromStringInISO8601(busyFlightsReq.getReturnDate());
+        LocalDate departureLocalDate = DateUitls.getLocalDateFromStringInISO8601(busyFlightsReq.getDepartureDate());
+        LocalDate returnLocalDate = DateUitls.getLocalDateFromStringInISO8601(busyFlightsReq.getReturnDate());
 
 
         Integer departureDay = departureLocalDate.getDayOfMonth();
