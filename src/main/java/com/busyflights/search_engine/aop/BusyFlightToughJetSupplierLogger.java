@@ -23,14 +23,14 @@ public class BusyFlightToughJetSupplierLogger {
 
     public void beforeSearchCrazyFlights(ToughJetFlighTimeInterval toughJetFlighTimeInterval) {
 
-        LOGGER.info("Tough Jet Service received a request [{}]", toughJetFlighTimeInterval);
+        LOGGER.info("Tough Jet Service received a request : {}", toughJetFlighTimeInterval);
 
     }
 
     @AfterReturning(pointcut = "execution(* com.busyflights.search_engine.services.tough_jet.service.ToughJetService.searchToughJetFlights(..))", returning = "result")
     public void afterSearch(JoinPoint joinPoint, Object result) {
 
-        LOGGER.info("Tough Jet Service reply with [{}]", result);
+        LOGGER.info("Tough Jet Service reply with : {}", result);
     }
 
 }
