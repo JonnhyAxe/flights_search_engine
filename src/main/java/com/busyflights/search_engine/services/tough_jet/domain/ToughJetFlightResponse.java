@@ -263,12 +263,12 @@ public class ToughJetFlightResponse extends ToughJetFlighTimeInterval implements
         str.append(super.toString());
 
 
-        str.append("From venue [").append( this.carrier).append("]")
-                .append("To Venue [").append(this.basePrice ).append("]")
-                .append("Tax [").append(this.tax).append("]")
-                .append("Discount [").append(this.discount).append("]")
-                .append("Departure Airport Name [").append(this.departureAirportName).append("]")
-                .append("Arrival Airport Name [").append(this.arrivalAirportName).append("]");
+        str.append("From venue [").append(this.carrier).append("] ")
+                .append("To Venue [").append(this.basePrice).append("] ")
+                .append("Tax [").append(this.tax).append("] ")
+                .append("Discount [").append(this.discount).append("] ")
+                .append("Departure Airport Name [").append(this.departureAirportName).append("] ")
+                .append("Arrival Airport Name [").append(this.arrivalAirportName).append("] ");
 
         return str.toString();
     }
