@@ -74,12 +74,12 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
 
         // considering that the url is correct
         StringBuilder urlEntity = new StringBuilder(urlStr);
-        LocalDate departureLocaleDate = DateUitls.getLocalDateFromStringInISO8601(busyFlightsReq.getDepartureDate());
-        LocalDate retureLocaleDate = DateUitls.getLocalDateFromStringInISO8601(busyFlightsReq.getReturnDate());
-        String departureDate = DateUitls.getStringDateMmDdYyyy(departureLocaleDate.getYear(), departureLocaleDate.getMonthValue(),
-                departureLocaleDate.getDayOfMonth());
-        String returnDate = DateUitls.getStringDateMmDdYyyy(retureLocaleDate.getYear(), retureLocaleDate.getMonthValue(),
-                retureLocaleDate.getDayOfMonth());
+        LocalDate departureLocaleDate = DateUitls.getLocalDateFromStringDateFormat(busyFlightsReq.getDepartureDate(), DateUitls.ISO8601_FORMAT);
+        LocalDate retureLocaleDate = DateUitls.getLocalDateFromStringDateFormat(busyFlightsReq.getReturnDate(), DateUitls.ISO8601_FORMAT);
+        String departureDate = DateUitls.getStringDateISOFormat(departureLocaleDate.getYear(), departureLocaleDate.getMonthValue(), departureLocaleDate.getDayOfMonth(),
+                DateUitls.MM_DD_YYYY_Format);
+        String returnDate = DateUitls.getStringDateISOFormat(retureLocaleDate.getYear(), retureLocaleDate.getMonthValue(),
+                retureLocaleDate.getDayOfMonth(), DateUitls.MM_DD_YYYY_Format);
         urlEntity.append(QUERY_PARAM)
                 .append(BusyFlightsAPIParams.ORIGIN.getName()).append(SIGN_PARAM).append(busyFlightsReq.getOrigin()).append(AND_PARAM)
                 .append(BusyFlightsAPIParams.DESTINATION.getName()).append(SIGN_PARAM).append(busyFlightsReq.getDestination()).append(AND_PARAM)
@@ -95,8 +95,8 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
 
         StringBuilder urlEntity = new StringBuilder(urlStr);
         // TODO : change to getStringDateISOFormat(... DateUitls.ISO8601))
-        LocalDate departureLocalDate = DateUitls.getLocalDateFromStringInISO8601(busyFlightsReq.getDepartureDate());
-        LocalDate returnLocalDate = DateUitls.getLocalDateFromStringInISO8601(busyFlightsReq.getReturnDate());
+        LocalDate departureLocalDate = DateUitls.getLocalDateFromStringDateFormat(busyFlightsReq.getDepartureDate(), DateUitls.ISO8601_FORMAT);
+        LocalDate returnLocalDate = DateUitls.getLocalDateFromStringDateFormat(busyFlightsReq.getReturnDate(), DateUitls.ISO8601_FORMAT);
 
 
         Integer departureDay = departureLocalDate.getDayOfMonth();

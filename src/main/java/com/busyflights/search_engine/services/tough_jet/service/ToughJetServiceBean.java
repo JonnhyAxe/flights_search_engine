@@ -122,18 +122,17 @@ public class ToughJetServiceBean implements ToughJetService {
      */
     private String getReturnDateStr(ToughJetFlightResponse flight) {
 
-        // TODO : change to getStringDateISOFormat(... DateUitls.ISO8601))
-        return DateUitls.getStringDateMmDdYyyy(flight.getReturnYear(), flight.getReturnMonth(), flight.getReturnDay());
+        return DateUitls.getStringDateISOFormat(flight.getReturnYear(), flight.getReturnMonth(), flight.getReturnDay(), DateUitls.ISO8601_FORMAT);
     }
 
     /**
      * @param toughJetRequest
      * @return
      */
-    private Object getReturnDateStr(ToughJetFlightRequest toughJetRequest) {
+    private String getReturnDateStr(ToughJetFlightRequest toughJetRequest) {
 
-        // TODO : change to getStringDateISOFormat(... DateUitls.ISO8601))
-        return DateUitls.getStringDateMmDdYyyy(toughJetRequest.getReturnYear(), toughJetRequest.getReturnMonth(), toughJetRequest.getReturnDay());
+        return DateUitls.getStringDateISOFormat(toughJetRequest.getReturnYear(), toughJetRequest.getReturnMonth(), toughJetRequest.getReturnDay(),
+                DateUitls.ISO8601_FORMAT);
     }
 
     /**
@@ -141,8 +140,8 @@ public class ToughJetServiceBean implements ToughJetService {
      */
     private String getDepartureDateStr(ToughJetFlightRequest toughJetRequest) {
 
-        // TODO : change to getStringDateISOFormat(... DateUitls.ISO8601))
-        return DateUitls.getStringDateMmDdYyyy(toughJetRequest.getDepartureYear(), toughJetRequest.getDepartureMonth(), toughJetRequest.getDepartureDay());
+        return DateUitls.getStringDateISOFormat(toughJetRequest.getDepartureYear(), toughJetRequest.getDepartureMonth(), toughJetRequest.getDepartureDay(),
+                DateUitls.ISO8601_FORMAT);
     }
 
     /**
@@ -150,8 +149,8 @@ public class ToughJetServiceBean implements ToughJetService {
      */
     private String getDepartureDateStr(ToughJetFlightResponse toughJetResponse) {
 
-        // TODO : change to getStringDateISOFormat(... DateUitls.ISO8601))
-        return DateUitls.getStringDateMmDdYyyy(toughJetResponse.getDepartureYear(), toughJetResponse.getDepartureMonth(), toughJetResponse.getDepartureDay());
+        return DateUitls.getStringDateISOFormat(toughJetResponse.getDepartureYear(), toughJetResponse.getDepartureMonth(), toughJetResponse.getDepartureDay(),
+                DateUitls.ISO8601_FORMAT);
     }
 
 }

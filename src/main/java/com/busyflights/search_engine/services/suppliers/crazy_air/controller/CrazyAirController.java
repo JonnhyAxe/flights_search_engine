@@ -52,7 +52,8 @@ public class CrazyAirController {
                 .departureDate(departureDate) // mm-dd-yyyy
                 .returnDate(returnDate) // mm-dd-yyyy
                 .numberOfPassengers(numberOfPassengers);
-        return crazyAirService.searchCrazyFlights(crazyAirRequestBuilder.build());
+        List<CrazyAirResponse> listCrazyAirResponse = crazyAirService.searchCrazyFlights(crazyAirRequestBuilder.build());
+        return listCrazyAirResponse;
     }
 
 }
