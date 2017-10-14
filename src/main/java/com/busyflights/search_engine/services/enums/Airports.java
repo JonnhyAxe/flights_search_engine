@@ -7,7 +7,7 @@ package com.busyflights.search_engine.services.enums;
  */
 public enum Airports {
 
-    APO, LIS;
+    OPO, LIS;
 
 
 }

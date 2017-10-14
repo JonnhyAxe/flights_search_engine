@@ -1,6 +1,7 @@
 package com.busyflights.search_engine.services.interfaces;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -36,6 +39,7 @@ import com.busyflights.search_engine.web.domain.enums.Suppliers;
 @Service
 public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlightsService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CrazyToughAirJetSupplierFlightsService.class);
 
     /**
      * TODO: check if constants are defined in spring framework
@@ -165,14 +169,15 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
             CompletableFuture.allOf(crazyAirResponse, toughJetAirResponse).join();
 
             List<BusyFlightsResponse> busyFlightsResponseFromAirResponse = crazyAirResponse.get().stream()
-                    .map(convertCrazyAirToBusyFlights).collect(Collectors.toList());
+                    .map(convertCrazyAirToBusyFlights)
+                    .collect(Collectors.toList());
 
 
             List<BusyFlightsResponse> busyFlightsResponseFromToughResponse = toughJetAirResponse.get().stream()
                     .map(convertToughJetToBusyFlights)
                     .collect(Collectors.toList());
 
-
+            result = new ArrayList<>(busyFlightsResponseFromAirResponse.size() + busyFlightsResponseFromToughResponse.size());
             result.addAll(busyFlightsResponseFromAirResponse);
             result.addAll(busyFlightsResponseFromToughResponse);
             // result =
@@ -181,7 +186,8 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
             // Collections.sort(result);
         }
         catch (InterruptedException | ExecutionException ex) {
-            ex.printStackTrace();
+            LOGGER.error("Error Fetching data from suplliers {}", ex.getMessage());
+            return result;
         }
         return result;
     }

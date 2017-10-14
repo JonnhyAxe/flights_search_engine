@@ -42,14 +42,14 @@ public final class DateUitls {
     public static String getStringDateMmDdYyyy(Integer year, Integer month, Integer dayOfMonth) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(MmDdYyyyFormat);
-        String localDateFormatted = getStringDate(year, month, dayOfMonth, formatter);
+        String localDateFormatted = getStringDate(year, month, dayOfMonth,  formatter);
         return localDateFormatted;
     }
 
-    public static String getStringDateMmDdYyyyHhMmSs(Integer year, Integer month, Integer dayOfMonth) {
+    public static String getStringDateMmDdYyyyHhMmSs(Integer month, Integer dayOfMonth, Integer year) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(MmddyyyyhhmmssFormat);
-        String localDateFormatted = getStringDate(year, month, dayOfMonth, formatter);
+        String localDateFormatted = getStringDate(month, dayOfMonth, year, formatter);
         return localDateFormatted;
     }
 

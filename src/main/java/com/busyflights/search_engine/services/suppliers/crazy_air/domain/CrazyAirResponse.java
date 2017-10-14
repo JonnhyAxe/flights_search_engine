@@ -285,12 +285,12 @@ public class CrazyAirResponse implements Serializable {
 
         StringBuilder str = new StringBuilder();
 
-        str.append("Airline [").append(this.airline).append("]")
-                .append("Price [").append(this.price).append("]")
-                .append("Cabin Class [").append(this.cabinclass).append("]")
-                .append("Destination Airport Code [").append(this.destinationAirportCode).append("]")
-                .append("Departure Date [").append(this.departureDate).append("]")
-                .append("Arrival Date [").append(this.arrivalDate).append("]");
+        str.append("Airline [").append(this.airline).append("] ")
+                .append("Price [").append(this.price).append("] ")
+                .append("Cabin Class [").append(this.cabinclass).append("] ")
+                .append("Destination Airport Code [").append(this.destinationAirportCode).append("] ")
+                .append("Departure Date [").append(this.departureDate).append("] ")
+                .append("Arrival Date [").append(this.arrivalDate).append("] ");
 
         return str.toString();
     }

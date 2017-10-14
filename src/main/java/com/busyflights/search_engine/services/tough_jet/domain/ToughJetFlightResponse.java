@@ -96,7 +96,9 @@ public class ToughJetFlightResponse extends ToughJetFlighTimeInterval implements
     private String arrivalAirportName;
 
 
+    public ToughJetFlightResponse() {
 
+    }
     public ToughJetFlightResponse(ToughJetFlighTimeInterval.Builder timeIntervalbuilder, ToughJetFlightResponse.Builder builder) {
         super(timeIntervalbuilder);
         this.carrier = builder.carrier;
