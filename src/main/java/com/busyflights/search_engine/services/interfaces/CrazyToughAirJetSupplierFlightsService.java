@@ -3,9 +3,10 @@ package com.busyflights.search_engine.services.interfaces;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.BiFunction;
@@ -142,6 +143,7 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
                 .build();
     };
 
+
     /*
      * (non-Javadoc)
      *
@@ -156,6 +158,7 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
         List<BusyFlightsResponse> result = Collections.emptyList();
 
         try {
+
             CompletableFuture<List<CrazyAirResponse>> crazyAirResponse = getAsyncCrazyAirFlights(searchRequest);
 
             CompletableFuture<List<ToughJetFlightResponse>> toughJetAirResponse = getAsyncToughJetFlights(searchRequest);
@@ -170,11 +173,13 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
                     .map(convertToughJetToBusyFlights)
                     .collect(Collectors.toList());
 
-            result = new ArrayList<>(crazyAirResponse.get().size() + toughJetAirResponse.get().size());
 
             result.addAll(busyFlightsResponseFromAirResponse);
             result.addAll(busyFlightsResponseFromToughResponse);
-            Collections.sort(result);
+            // result =
+            // result.stream().sorted(Comparator.comparing(BusyFlightsResponse::getFare)).collect(Collectors.toList());
+            //
+            // Collections.sort(result);
         }
         catch (InterruptedException | ExecutionException ex) {
             ex.printStackTrace();
@@ -193,8 +198,15 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
     public List<BusyFlightsResponse> orderedSearchByFare(BusyFlightsRequest searchRequest) {
 
         List<BusyFlightsResponse> allFlights = searchBusyFlights(searchRequest);
-        Collections.sort(allFlights, (f1, f2) -> f1.getFare().compareTo(f2.getFare()));
-        return allFlights;
+        if (Objects.nonNull(allFlights) && !allFlights.isEmpty()) {
+            return allFlights.stream().sorted(Comparator.comparing(BusyFlightsResponse::getFare)).collect(Collectors.toList());
+        }
+
+        return Collections.emptyList();
+
+        // Collections.sort(result);
+        // Collections.sort(allFlights, (f1, f2) ->
+        // f1.getFare().compareTo(f2.getFare()));
     }
 
     @Async
