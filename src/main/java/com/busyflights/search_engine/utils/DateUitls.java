@@ -9,13 +9,15 @@ import java.time.format.DateTimeFormatter;
  */
 public final class DateUitls {
 
-    public static final long MINIMUM_DAY = 0;
+    public static final long MINIMUM_DAY = 1;
 
-    public static final long MAX_DAY = 0;
+    public static final long MAX_DAY = 31;
 
-    public static final long MINIMUM_MONTH = 0;
+    public static final long MINIMUM_MONTH = 1;
 
-    public static final long MINIMUM_YEAR = 0;
+    public static final long MAX_MONTH = 12;
+
+    public static final long MINIMUM_YEAR = 2017;
 
     public static final String MmddyyyyhhmmssFormat = "MM-dd-yyyy hh:mm:ss";
 

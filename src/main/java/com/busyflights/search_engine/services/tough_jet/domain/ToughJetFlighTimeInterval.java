@@ -1,8 +1,11 @@
 package com.busyflights.search_engine.services.tough_jet.domain;
 
+
 import java.io.Serializable;
 
 import org.hibernate.validator.constraints.Range;
+
+import com.busyflights.search_engine.utils.DateUitls;
 
 /**
  * ToughJetT Time interval
@@ -14,11 +17,6 @@ public class ToughJetFlighTimeInterval implements Serializable {
      */
     private static final long serialVersionUID = 7618097169689263983L;
 
-    private static final long MINIMUM_DAY = 0;
-
-    private static final long MINIMUM_YEAR = 0;
-
-    private static final long MINIMUM_MONTH = 0;
 
     public static final class Builder {
 
@@ -79,25 +77,26 @@ public class ToughJetFlighTimeInterval implements Serializable {
         }
     }
 
-    @Range(min = MINIMUM_DAY, max = MINIMUM_YEAR)
+    @Range(min = DateUitls.MINIMUM_DAY, max = DateUitls.MAX_DAY)
     private Integer departureDay;
 
-    @Range(min = MINIMUM_MONTH, max = MINIMUM_MONTH)
+    @Range(min = DateUitls.MINIMUM_MONTH, max = DateUitls.MAX_MONTH)
     private Integer departureMonth;
 
-    @Range(min = MINIMUM_YEAR, max = Integer.MAX_VALUE)
+    @Range(min = DateUitls.MINIMUM_YEAR, max = Integer.MAX_VALUE)
     private Integer departureYear;
 
-    @Range(min = MINIMUM_DAY, max = MINIMUM_YEAR)
+    @Range(min = DateUitls.MINIMUM_DAY, max = DateUitls.MAX_DAY)
     private Integer returnDay;
 
-    @Range(min = MINIMUM_MONTH, max = MINIMUM_MONTH)
+    @Range(min = DateUitls.MINIMUM_MONTH, max = DateUitls.MAX_MONTH)
     private Integer returnMonth;
 
-    @Range(min = MINIMUM_YEAR, max = Integer.MAX_VALUE)
+    @Range(min = DateUitls.MINIMUM_YEAR, max = Integer.MAX_VALUE)
     private Integer returnYear;
 
     public ToughJetFlighTimeInterval() {
+        super();
     }
 
     public ToughJetFlighTimeInterval(ToughJetFlighTimeInterval.Builder timeIntervalbuilder) {

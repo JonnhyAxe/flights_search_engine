@@ -2,7 +2,6 @@ package com.busyflights.search_engine.services.suppliers.crazy_air.domain;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -34,6 +33,7 @@ public class CrazyAirResponse implements Serializable {
         // mm-dd-yyyy HH:MM:ss
         private String departureDate;
 
+        // mm-dd-yyyy HH:MM:ss
         private String arrivalDate;
 
         public Builder() {
@@ -87,35 +87,28 @@ public class CrazyAirResponse implements Serializable {
         }
     }
 
-    @NotNull
     @NotEmpty
     private String airline;
 
-    @NotNull
     @NotEmpty
     private Double price;
 
-    @NotNull
     @NotEmpty
     private String cabinclass;
 
-    @NotNull
     @NotEmpty
     @Size(min=3, max=3)
     private String departureAirportCode;
 
-    @NotNull
     @NotEmpty
     @Size(min=3, max=3)
     private String destinationAirportCode;
 
-    @NotNull
     @NotEmpty
-    private String departureDate;
+    private String departureDate; // mm-dd-yyyy HH:MM:ss
 
-    @NotNull
     @NotEmpty
-    private String arrivalDate;
+    private String arrivalDate; // mm-dd-yyyy HH:MM:ss
 
     public CrazyAirResponse() {
     }

@@ -149,6 +149,7 @@ public class ToughJetFlightRequest extends ToughJetFlighTimeInterval {
         else if (!fromVenue.equals(other.fromVenue)) {
             return false;
         }
+
         if (numberOfAdults == null) {
             if (other.numberOfAdults != null) {
                 return false;
@@ -157,6 +158,7 @@ public class ToughJetFlightRequest extends ToughJetFlighTimeInterval {
         else if (!numberOfAdults.equals(other.numberOfAdults)) {
             return false;
         }
+
         if (toVenue == null) {
             if (other.toVenue != null) {
                 return false;

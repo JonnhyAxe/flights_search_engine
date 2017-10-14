@@ -2,11 +2,11 @@ package com.busyflights.search_engine.web.controller;
 
 import java.util.List;
 
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,12 +20,15 @@ import com.busyflights.search_engine.web.domain.BusyFlightsResponse;
 /**
  * Busy Flights Controller
  *
+ * https://en.wikipedia.org/wiki/ISO_8601 -> YYYY-MM-DD
+ *
  */
 @RestController
 @RequestMapping("/busy-flights")
 public class BusyFlightsController {
 
-    private static final String DATA_PATTERN = "^(0[0-9]||1[0-2])-([0-2][0-9]||3[0-1])-([0-9][0-9])?[0-9][0-9]$";
+    // private static final String DATA_PATTERN =
+    // "^(0[0-9]||1[0-2])-([0-2][0-9]||3[0-1])-([0-9][0-9])?[0-9][0-9]$";
 
     @Autowired
     private OrderedBusyFlightsService busyFlightsService;
@@ -39,10 +42,12 @@ public class BusyFlightsController {
             @Size(min = 3, max = 3)
             final String destination,
             @RequestParam
-            @Pattern(regexp = DATA_PATTERN)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            // @Pattern(regexp = DATA_PATTERN)
             final String departureDate,
             @RequestParam
-            @Pattern(regexp = DATA_PATTERN)
+            // @Pattern(regexp = DATA_PATTERN)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             final String returnDate,
             @RequestParam @Range(min = 1, max = 4) int numberOfPassengers) {
 

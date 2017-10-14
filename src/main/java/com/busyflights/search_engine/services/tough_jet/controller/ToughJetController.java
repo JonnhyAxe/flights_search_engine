@@ -41,7 +41,7 @@ public class ToughJetController {
             @Range(min = DateUitls.MINIMUM_DAY, max = DateUitls.MAX_DAY)
             final int departureDay,
             @RequestParam
-            @Range(min = DateUitls.MINIMUM_MONTH, max = DateUitls.MINIMUM_MONTH)
+            @Range(min = DateUitls.MINIMUM_MONTH, max = DateUitls.MAX_MONTH)
             final int departureMonth,
             @RequestParam
             @Range(min = DateUitls.MINIMUM_YEAR, max = Integer.MAX_VALUE)

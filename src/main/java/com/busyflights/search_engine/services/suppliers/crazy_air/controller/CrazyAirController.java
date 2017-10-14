@@ -49,8 +49,8 @@ public class CrazyAirController {
         CrazyAirRequest.Builder crazyAirRequestBuilder = new CrazyAirRequest.Builder()
                 .origin(origin)
                 .destination(destination)
-                .departureDate(departureDate)
-                .returnDate(returnDate)
+                .departureDate(departureDate) // mm-dd-yyyy
+                .returnDate(returnDate) // mm-dd-yyyy
                 .numberOfPassengers(numberOfPassengers);
         return crazyAirService.searchCrazyFlights(crazyAirRequestBuilder.build());
     }
