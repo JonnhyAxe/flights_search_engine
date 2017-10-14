@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.busyflights.search_engine.services.enums.AirLines;
 import com.busyflights.search_engine.services.enums.Airports;
-import com.busyflights.search_engine.services.suppliers.crazy_air.domain.enums.CabinClass;
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlighTimeInterval;
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightRequest;
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightResponse;
@@ -42,7 +42,7 @@ public class ToughJetServiceBean implements ToughJetService {
                 .departureAirportName(Airports.OPO.name())
                 .basePrice(1.00)
                 .discount(2.55).tax(0.1)
-                .carrier(CabinClass.B.name());
+                .carrier(AirLines.TAP.name());
 
 
         mockedData.add(response.build(timeBuilder));
@@ -59,7 +59,7 @@ public class ToughJetServiceBean implements ToughJetService {
                 .arrivalAirportName(Airports.LIS.name())
                 .departureAirportName(Airports.OPO.name())
                 .basePrice(3.00)
-                .discount(2.55).tax(0.1).carrier("????");
+                .discount(2.55).tax(0.1).carrier(AirLines.TAP.name());
 
         mockedData.add(response.build(timeBuilder));
 
@@ -75,7 +75,7 @@ public class ToughJetServiceBean implements ToughJetService {
                 .arrivalAirportName(Airports.LIS.name())
                 .departureAirportName(Airports.OPO.name())
                 .basePrice(3.00)
-                .discount(2.55).tax(0.1).carrier("????");
+                .discount(2.55).tax(0.1).carrier(AirLines.TAP.name());
 
         mockedData.add(response.build(timeBuilder));
 

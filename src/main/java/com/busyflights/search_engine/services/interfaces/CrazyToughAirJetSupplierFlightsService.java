@@ -131,9 +131,13 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
 
     Function<ToughJetFlightResponse, BusyFlightsResponse> convertToughJetToBusyFlights = (tough) -> {
 
-        StringBuilder date = new StringBuilder().append(tough.getDepartureMonth()).append(HYPHEN)
-                .append(tough.getDepartureDay()).append(HYPHEN)
-                .append(tough.getDepartureYear());
+        StringBuilder departureDate = new StringBuilder().append(tough.getDepartureYear()).append(HYPHEN)
+                .append(tough.getDepartureMonth()).append(HYPHEN)
+                .append(tough.getDepartureDay());
+
+        StringBuilder arrivalDate = new StringBuilder().append(tough.getReturnYear()).append(HYPHEN)
+                .append(tough.getReturnMonth()).append(HYPHEN)
+                .append(tough.getReturnDay());
 
         return new BusyFlightsResponse.Builder()
                 .airline(tough.getCarrier())
@@ -141,8 +145,9 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
                 .fare(tough.getBasePrice())
                 // .arrivalDate(tough.get())
                 .departureAirportCode(tough.getDepartureAirportName())
-                .destinationAirportCode(tough.getDepartureAirportName())
-                .departureDate(date.toString())
+                .destinationAirportCode(tough.getArrivalAirportName())
+                .departureDate(departureDate.toString())
+                .arrivalDate(arrivalDate.toString())
                 .build();
     };
 
@@ -208,10 +213,6 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
         }
 
         return Collections.emptyList();
-
-        // Collections.sort(result);
-        // Collections.sort(allFlights, (f1, f2) ->
-        // f1.getFare().compareTo(f2.getFare()));
     }
 
     @Async
@@ -226,7 +227,6 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
         ResponseEntity<List<CrazyAirResponse>> rateResponse = null;
         String getUrlEntityWithParameters = appendReqParamsToCrazyAirURL.apply(searchRequest, this.crazyairUrl);
         try {
-            // URLEncoder.encode(getUrlEntityWithParameters, "UTF-8");
             rateResponse = new RestTemplate().exchange(getUrlEntityWithParameters,
                             HttpMethod.GET, null, new ParameterizedTypeReference<List<CrazyAirResponse>>() {
                     });
@@ -236,9 +236,6 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
         }
         catch (HttpClientErrorException ex) {
 
-            // catch (UnsupportedEncodingException |
-            // org.springframework.web.client.HttpClientErrorException ex) {
-            // TODO Auto-generated catch block
             ex.printStackTrace();
             result = Collections.emptyList();
         }
