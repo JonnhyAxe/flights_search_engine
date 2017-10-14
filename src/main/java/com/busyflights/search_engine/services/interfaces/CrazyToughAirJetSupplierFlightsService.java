@@ -38,7 +38,7 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
 
 
     /**
-     * TODO: check if constants are difined in spring framework
+     * TODO: check if constants are defined in spring framework
      */
     private static final String HYPHEN = "-";
 
@@ -84,7 +84,7 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
         // considering that the url is correct
 
         StringBuilder urlEntity = new StringBuilder(urlStr);
-
+        // TODO : change to getStringDateISOFormat(... DateUitls.ISO8601))
         LocalDate departureLocalDate = DateUitls.getLocalDateFromStringInISO8601(busyFlightsReq.getDepartureDate());
         LocalDate returnLocalDate = DateUitls.getLocalDateFromStringInISO8601(busyFlightsReq.getReturnDate());
 

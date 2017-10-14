@@ -1,10 +1,5 @@
 package com.busyflights.search_engine.services.tough_jet.controller;
 
-import static com.busyflights.search_engine.utils.DateUitls.MAX_DAY;
-import static com.busyflights.search_engine.utils.DateUitls.MINIMUM_DAY;
-import static com.busyflights.search_engine.utils.DateUitls.MINIMUM_MONTH;
-import static com.busyflights.search_engine.utils.DateUitls.MINIMUM_YEAR;
-
 import java.util.List;
 
 import javax.validation.constraints.Null;
@@ -22,10 +17,14 @@ import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlighTime
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightRequest;
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightResponse;
 import com.busyflights.search_engine.services.tough_jet.service.ToughJetService;
+import com.busyflights.search_engine.utils.DateUitls;
+
 
 @RequestMapping("/tough-jet") // hyphens are OK
 @RestController
 public class ToughJetController {
+
+
 
     @Autowired
     private ToughJetService toughJetService;
@@ -39,24 +38,24 @@ public class ToughJetController {
             @Size(min = 3, max = 3)
             final String to,
             @RequestParam
-            @Range(min = MINIMUM_DAY, max = MAX_DAY)
+            @Range(min = DateUitls.MINIMUM_DAY, max = DateUitls.MAX_DAY)
             final int departureDay,
             @RequestParam
-            @Range(min = MINIMUM_MONTH, max = MINIMUM_MONTH)
+            @Range(min = DateUitls.MINIMUM_MONTH, max = DateUitls.MINIMUM_MONTH)
             final int departureMonth,
             @RequestParam
-            @Range(min = MINIMUM_YEAR, max = Integer.MAX_VALUE)
+            @Range(min = DateUitls.MINIMUM_YEAR, max = Integer.MAX_VALUE)
             final int departureYear,
             @RequestParam
-            @Range(min = MINIMUM_DAY, max = MAX_DAY)
+            @Range(min = DateUitls.MINIMUM_DAY, max = DateUitls.MAX_DAY)
             @Null
             final int returnDay,
             @RequestParam
-            @Range(min = MINIMUM_MONTH, max = MINIMUM_MONTH)
+            @Range(min = DateUitls.MINIMUM_MONTH, max = DateUitls.MINIMUM_MONTH)
             @Null
             final int returnMonth,
             @RequestParam
-            @Range(min = MINIMUM_YEAR, max = Integer.MAX_VALUE)
+            @Range(min = DateUitls.MINIMUM_YEAR, max = Integer.MAX_VALUE)
             @Null
             final int returnYear,
             @RequestParam

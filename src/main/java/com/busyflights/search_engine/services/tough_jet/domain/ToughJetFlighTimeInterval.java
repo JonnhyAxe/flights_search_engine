@@ -1,9 +1,5 @@
 package com.busyflights.search_engine.services.tough_jet.domain;
 
-import static com.busyflights.search_engine.utils.DateUitls.MINIMUM_DAY;
-import static com.busyflights.search_engine.utils.DateUitls.MINIMUM_MONTH;
-import static com.busyflights.search_engine.utils.DateUitls.MINIMUM_YEAR;
-
 import java.io.Serializable;
 
 import org.hibernate.validator.constraints.Range;
@@ -17,6 +13,12 @@ public class ToughJetFlighTimeInterval implements Serializable {
      *
      */
     private static final long serialVersionUID = 7618097169689263983L;
+
+    private static final long MINIMUM_DAY = 0;
+
+    private static final long MINIMUM_YEAR = 0;
+
+    private static final long MINIMUM_MONTH = 0;
 
     public static final class Builder {
 

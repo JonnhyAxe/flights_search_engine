@@ -4,26 +4,31 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Date Contants
+ * <class description>
  *
  */
 public final class DateUitls {
 
-    public final static int MINIMUM_YEAR = 2017;
+    public static final long MINIMUM_DAY = 0;
 
-    public final static int MINIMUM_DAY = 1;
+    public static final long MAX_DAY = 0;
 
-    public final static int MAX_DAY = 31;
+    public static final long MINIMUM_MONTH = 0;
 
-    public final static int MINIMUM_MONTH = 1;
+    public static final long MINIMUM_YEAR = 0;
 
-    public final static int MAX_MONTH = 31;
+    public static final String MmddyyyyhhmmssFormat = "MM-dd-yyyy hh:mm:ss";
 
-    public final static String MmddyyyyhhmmssFormat = "MM-dd-yyyy hh:mm:ss";
+    public static final String MmDdYyyyFormat = "MM-dd-yyyy";
 
-    public final static String MmDdYyyyFormat = "MM-dd-yyyy";
+    public static final String ISO8601 = "yyyy-MM-dd";
 
-    public final static String ISO8601 = "yyyy-MM-dd";
+    public static String getStringDateISOFormat(Integer year, Integer month, Integer dayOfMonth, String fomat) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(fomat);
+        String localDateFormatted = getStringDate(year, month, dayOfMonth, formatter);
+        return localDateFormatted;
+    }
 
     public static String getStringDateISO8601(Integer year, Integer month, Integer dayOfMonth) {
 
