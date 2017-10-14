@@ -33,8 +33,8 @@ public class CrazyAirServiceBean implements CrazyAirService {
                 .airline(AirLines.TAP.name())
                 .departureAirportCode(Airports.OPO.name())
                 .destinationAirportCode(Airports.LIS.name())
-                .departureDate(DateUitls.getStringDateISOFormat(2017, 10, 14, DateUitls.ISO8601))
-                .arrivalDate(DateUitls.getStringDateISOFormat(2017, 10, 15, DateUitls.ISO8601))
+                .departureDate(DateUitls.getStringDateISOFormat(2017, 10, 14, DateUitls.MmDdYyyyFormat))
+                .arrivalDate(DateUitls.getStringDateISOFormat(2017, 10, 15, DateUitls.MmDdYyyyFormat))
                 .price(13.66)
                 .cabinclass(CabinClass.B);
 
@@ -44,8 +44,8 @@ public class CrazyAirServiceBean implements CrazyAirService {
                 .airline(AirLines.TAP.name())
                 .departureAirportCode(Airports.OPO.name())
                 .destinationAirportCode(Airports.LIS.name())
-                .departureDate(DateUitls.getStringDateISOFormat(2017, 10, 14, DateUitls.ISO8601))
-                .arrivalDate(DateUitls.getStringDateISOFormat(2017, 10, 16, DateUitls.ISO8601))
+                .departureDate(DateUitls.getStringDateISOFormat(2017, 10, 14, DateUitls.MmDdYyyyFormat))
+                .arrivalDate(DateUitls.getStringDateISOFormat(2017, 10, 16, DateUitls.MmDdYyyyFormat))
                 .price(1.66)
                 .cabinclass(CabinClass.B);
 
@@ -55,8 +55,8 @@ public class CrazyAirServiceBean implements CrazyAirService {
                 .airline(AirLines.TAP.name())
                 .departureAirportCode(Airports.OPO.name())
                 .destinationAirportCode(Airports.LIS.name())
-                .departureDate(DateUitls.getStringDateISOFormat(2017, 10, 14, DateUitls.ISO8601))
-                .arrivalDate(DateUitls.getStringDateISOFormat(2017, 10, 17, DateUitls.ISO8601))
+                .departureDate(DateUitls.getStringDateISOFormat(2017, 10, 14, DateUitls.MmDdYyyyFormat))
+                .arrivalDate(DateUitls.getStringDateISOFormat(2017, 10, 17, DateUitls.MmDdYyyyFormat))
                 .price(12.66)
                 .cabinclass(CabinClass.B);
 

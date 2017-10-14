@@ -74,11 +74,17 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
 
         // considering that the url is correct
         StringBuilder urlEntity = new StringBuilder(urlStr);
+        LocalDate departureLocaleDate = DateUitls.getLocalDateFromStringInISO8601(busyFlightsReq.getDepartureDate());
+        LocalDate retureLocaleDate = DateUitls.getLocalDateFromStringInISO8601(busyFlightsReq.getReturnDate());
+        String departureDate = DateUitls.getStringDateMmDdYyyy(departureLocaleDate.getYear(), departureLocaleDate.getMonthValue(),
+                departureLocaleDate.getDayOfMonth());
+        String returnDate = DateUitls.getStringDateMmDdYyyy(retureLocaleDate.getYear(), retureLocaleDate.getMonthValue(),
+                retureLocaleDate.getDayOfMonth());
         urlEntity.append(QUERY_PARAM)
                 .append(BusyFlightsAPIParams.ORIGIN.getName()).append(SIGN_PARAM).append(busyFlightsReq.getOrigin()).append(AND_PARAM)
                 .append(BusyFlightsAPIParams.DESTINATION.getName()).append(SIGN_PARAM).append(busyFlightsReq.getDestination()).append(AND_PARAM)
-                .append(BusyFlightsAPIParams.DEPARTURE_DATE.getName()).append(SIGN_PARAM).append(busyFlightsReq.getDepartureDate()).append(AND_PARAM)
-                .append(BusyFlightsAPIParams.RETURN_DATE.getName()).append(SIGN_PARAM).append(busyFlightsReq.getReturnDate()).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.DEPARTURE_DATE.getName()).append(SIGN_PARAM).append(departureDate).append(AND_PARAM)
+                .append(BusyFlightsAPIParams.RETURN_DATE.getName()).append(SIGN_PARAM).append(returnDate).append(AND_PARAM)
                 .append(BusyFlightsAPIParams.NUMBER_OF_PASSENGERS.getName()).append(SIGN_PARAM).append(busyFlightsReq.getNumberOfPassengers());
         return urlEntity.toString();
     };
@@ -185,10 +191,7 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
             result = new ArrayList<>(busyFlightsResponseFromAirResponse.size() + busyFlightsResponseFromToughResponse.size());
             result.addAll(busyFlightsResponseFromAirResponse);
             result.addAll(busyFlightsResponseFromToughResponse);
-            // result =
-            // result.stream().sorted(Comparator.comparing(BusyFlightsResponse::getFare)).collect(Collectors.toList());
-            //
-            // Collections.sort(result);
+
         }
         catch (InterruptedException | ExecutionException ex) {
             LOGGER.error("Error Fetching data from suplliers {}", ex.getMessage());

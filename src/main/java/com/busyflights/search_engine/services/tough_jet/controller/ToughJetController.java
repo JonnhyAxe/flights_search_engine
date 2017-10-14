@@ -59,7 +59,7 @@ public class ToughJetController {
             @Null
             final int returnYear,
             @RequestParam
-            @Range(min = 1, max = 4)
+            @Range(min = 1, max = Integer.MAX_VALUE)
             final int numberOfAdults) {
 
 
