@@ -221,5 +221,17 @@ public class CrazyAirRequest implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+
+        str.append("From [").append(this.origin) .append("]")
+        .append("Destination [").append(this.destination) .append("]")
+                .append("Departure Date [").append(this.departureDate).append("]")
+                .append("Return Date [").append(this.returnDate).append("]")
+                .append("Return Date [").append(this.numberOfPassengers).append("]");
+
+        return str.toString();
+    }
 
 }

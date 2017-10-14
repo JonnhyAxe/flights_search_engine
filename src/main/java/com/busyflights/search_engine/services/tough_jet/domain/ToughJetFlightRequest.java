@@ -170,4 +170,17 @@ public class ToughJetFlightRequest extends ToughJetFlighTimeInterval {
         return true;
     }
 
+    @Override
+    public String toString() {
+
+        StringBuilder str = new StringBuilder();
+        str.append(super.toString());
+
+        str.append("From venue [").append(this.fromVenue).append("]")
+                .append("To Venue [").append(this.toVenue).append("]")
+                .append("Number Of Adults [").append(this.numberOfAdults).append("]");
+
+        return str.toString();
+    }
+
 }

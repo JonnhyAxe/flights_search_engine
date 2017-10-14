@@ -1,7 +1,5 @@
 package com.busyflights.search_engine.services.interfaces;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
@@ -19,6 +17,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.busyflights.search_engine.services.suppliers.crazy_air.domain.CrazyAirResponse;
@@ -221,7 +220,7 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
         ResponseEntity<List<CrazyAirResponse>> rateResponse = null;
         String getUrlEntityWithParameters = appendReqParamsToCrazyAirURL.apply(searchRequest, this.crazyairUrl);
         try {
-            URLEncoder.encode(getUrlEntityWithParameters, "UTF-8");
+            // URLEncoder.encode(getUrlEntityWithParameters, "UTF-8");
             rateResponse = new RestTemplate().exchange(getUrlEntityWithParameters,
                             HttpMethod.GET, null, new ParameterizedTypeReference<List<CrazyAirResponse>>() {
                     });
@@ -229,7 +228,10 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
             result = rateResponse.getBody();
 
         }
-        catch (UnsupportedEncodingException | org.springframework.web.client.HttpClientErrorException ex) {
+        catch (HttpClientErrorException ex) {
+
+            // catch (UnsupportedEncodingException |
+            // org.springframework.web.client.HttpClientErrorException ex) {
             // TODO Auto-generated catch block
             ex.printStackTrace();
             result = Collections.emptyList();

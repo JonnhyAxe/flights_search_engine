@@ -242,5 +242,20 @@ public class ToughJetFlighTimeInterval implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+
+        StringBuilder str = new StringBuilder();
+
+
+        str.append("Departure Day [").append(this.departureDay).append("]")
+                .append("Departure Month [").append(this.departureMonth).append("]")
+                .append("Departure Year [").append(this.departureYear).append("]")
+                .append("Return Day [").append(this.returnDay).append("]")
+                .append("Return Month [").append(this.returnMonth).append("]")
+                .append("Return Year [").append(this.returnYear).append("]");
+
+        return str.toString();
+    }
 
 }

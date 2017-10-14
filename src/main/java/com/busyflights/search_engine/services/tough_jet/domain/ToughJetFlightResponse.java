@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.Range;
 public class ToughJetFlightResponse extends ToughJetFlighTimeInterval implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -4825746715130880364L;
 
@@ -254,5 +254,21 @@ public class ToughJetFlightResponse extends ToughJetFlighTimeInterval implements
     }
 
 
+    @Override
+    public String toString() {
+
+        StringBuilder str = new StringBuilder();
+        str.append(super.toString());
+
+
+        str.append("From venue [").append( this.carrier).append("]")
+                .append("To Venue [").append(this.basePrice ).append("]")
+                .append("Tax [").append(this.tax).append("]")
+                .append("Discount [").append(this.discount).append("]")
+                .append("Departure Airport Name [").append(this.departureAirportName).append("]")
+                .append("Arrival Airport Name [").append(this.arrivalAirportName).append("]");
+
+        return str.toString();
+    }
 
 }
