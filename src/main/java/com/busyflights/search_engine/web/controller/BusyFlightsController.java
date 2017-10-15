@@ -27,9 +27,6 @@ import com.busyflights.search_engine.web.domain.BusyFlightsResponse;
 @RequestMapping("/busy-flights")
 public class BusyFlightsController {
 
-    // private static final String DATA_PATTERN =
-    // "^(0[0-9]||1[0-2])-([0-2][0-9]||3[0-1])-([0-9][0-9])?[0-9][0-9]$";
-
     @Autowired
     private OrderedBusyFlightsService busyFlightsService;
 

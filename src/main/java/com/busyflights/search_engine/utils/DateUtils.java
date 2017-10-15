@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Date Utils for validation and convertion
+ * Date Utils for validation and conversions
  *
  */
 public final class DateUtils {
@@ -30,65 +30,20 @@ public final class DateUtils {
     public static String getStringDateISOFormat(Integer year, Integer month, Integer dayOfMonth, String fomat) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(fomat);
-        String localDateFormatted = getStringDate(year, month, dayOfMonth, formatter);
-        return localDateFormatted;
+        return getStringDate(year, month, dayOfMonth, formatter);
     }
 
     public static String getStringDateISOFormat(Integer year, Integer month, Integer dayOfMonth, Integer hour, Integer min, Integer sec, String format) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-        LocalDateTime time = LocalDateTime.of(year, month, dayOfMonth, hour, min, sec);
-        return formatter.format(time);
+        return formatter.format(LocalDateTime.of(year, month, dayOfMonth, hour, min, sec));
 
-    }
-
-    // public static String getStringDateISO8601(Integer year, Integer month,
-    // Integer dayOfMonth) {
-    //
-    // DateTimeFormatter formatter =
-    // DateTimeFormatter.ofPattern(ISO8601_FORMAT);
-    // String localDateFormatted = getStringDate(year, month, dayOfMonth,
-    // formatter);
-    // return localDateFormatted;
-    // }
-
-//    public static String getStringDateMmDdYyyy(Integer year, Integer month, Integer dayOfMonth) {
-//
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(MM_DD_YYYY_Format);
-//        String localDateFormatted = getStringDate(year, month, dayOfMonth,  formatter);
-//        return localDateFormatted;
-//    }
-
-
-
-    // public static LocalDate getLocalDateFromStringInISO8601(String date) {
-    //
-    // DateTimeFormatter formatter =
-    // DateTimeFormatter.ofPattern(ISO8601_FORMAT);
-    // LocalDate localDate = LocalDate.parse(date, formatter);
-    // return localDate;
-    // }
-
-
-    public static LocalDate getLocalDateFromStringInMmDdYyyy(String date) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(MM_DD_YYYY_Format);
-        LocalDate localDate = LocalDate.parse(date, formatter);
-        return localDate;
-    }
-
-    public static LocalDate getLocalDateFromStringInMmDdYyyyHhMmSs(String date) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(MM_DD_YYYY_HHMMSS_FORMAT);
-        LocalDate localDate = LocalDate.parse(date, formatter);
-        return localDate;
     }
 
     public static LocalDate getLocalDateFromStringDateFormat(String date, String format) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-        LocalDate localDate = LocalDate.parse(date, formatter);
-        return localDate;
+        return LocalDate.parse(date, formatter);
     }
 
 

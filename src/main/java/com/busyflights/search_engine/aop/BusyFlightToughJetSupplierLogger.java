@@ -9,8 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlighTimeInterval;
+
 /**
- * <class description>
+ * BusyFlight ToughJet Supplier logger
  *
  */
 @Aspect

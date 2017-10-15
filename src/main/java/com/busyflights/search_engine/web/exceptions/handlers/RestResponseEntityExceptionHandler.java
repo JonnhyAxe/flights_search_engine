@@ -39,8 +39,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, message(HttpStatus.BAD_REQUEST, ex), headers, HttpStatus.BAD_REQUEST, request);
     }
 
-    @Override // In the case of an Identity field without value - TODO: It
-              // required @Validation
+    @Override
     protected final ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status,
             final WebRequest request) {
 

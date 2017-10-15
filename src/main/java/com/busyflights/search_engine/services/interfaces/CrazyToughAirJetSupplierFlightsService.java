@@ -42,24 +42,9 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CrazyToughAirJetSupplierFlightsService.class);
 
-    /**
-     *
-     */
     private static final String HYPHEN = "-";
-
-    /**
-     *
-     */
     private static final String SIGN_PARAM = "=";
-
-    /**
-     *
-     */
     private static final String QUERY_PARAM = "?";
-
-    /**
-    *
-    */
     private static final String AND_PARAM = "&";
 
     @Value("${crazyair.url}")
