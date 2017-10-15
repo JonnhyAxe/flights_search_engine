@@ -39,7 +39,6 @@
 		</dependency>
 
 
-
         <!-- core support -->
        <dependency>
             <groupId>io.springfox</groupId>

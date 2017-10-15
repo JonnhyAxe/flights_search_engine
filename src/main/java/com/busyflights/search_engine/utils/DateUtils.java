@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * <class description>
+ * Date Utils for validation and convertion
  *
  */
-public final class DateUitls {
+public final class DateUtils {
 
     public static final long MINIMUM_DAY = 1;
 

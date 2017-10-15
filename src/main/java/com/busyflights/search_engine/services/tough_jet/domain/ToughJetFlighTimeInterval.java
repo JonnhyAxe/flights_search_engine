@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import org.hibernate.validator.constraints.Range;
 
-import com.busyflights.search_engine.utils.DateUitls;
+import com.busyflights.search_engine.utils.DateUtils;
 
 /**
  * ToughJetT Time interval
@@ -77,22 +77,22 @@ public class ToughJetFlighTimeInterval implements Serializable {
         }
     }
 
-    @Range(min = DateUitls.MINIMUM_DAY, max = DateUitls.MAX_DAY)
+    @Range(min = DateUtils.MINIMUM_DAY, max = DateUtils.MAX_DAY)
     private Integer departureDay;
 
-    @Range(min = DateUitls.MINIMUM_MONTH, max = DateUitls.MAX_MONTH)
+    @Range(min = DateUtils.MINIMUM_MONTH, max = DateUtils.MAX_MONTH)
     private Integer departureMonth;
 
-    @Range(min = DateUitls.MINIMUM_YEAR, max = Integer.MAX_VALUE)
+    @Range(min = DateUtils.MINIMUM_YEAR, max = Integer.MAX_VALUE)
     private Integer departureYear;
 
-    @Range(min = DateUitls.MINIMUM_DAY, max = DateUitls.MAX_DAY)
+    @Range(min = DateUtils.MINIMUM_DAY, max = DateUtils.MAX_DAY)
     private Integer returnDay;
 
-    @Range(min = DateUitls.MINIMUM_MONTH, max = DateUitls.MAX_MONTH)
+    @Range(min = DateUtils.MINIMUM_MONTH, max = DateUtils.MAX_MONTH)
     private Integer returnMonth;
 
-    @Range(min = DateUitls.MINIMUM_YEAR, max = Integer.MAX_VALUE)
+    @Range(min = DateUtils.MINIMUM_YEAR, max = Integer.MAX_VALUE)
     private Integer returnYear;
 
     public ToughJetFlighTimeInterval() {

@@ -14,7 +14,7 @@ import com.busyflights.search_engine.services.enums.Airports;
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlighTimeInterval;
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightRequest;
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightResponse;
-import com.busyflights.search_engine.utils.DateUitls;
+import com.busyflights.search_engine.utils.DateUtils;
 
 /**
  * Tough Jet Service Bean implementation
@@ -122,7 +122,7 @@ public class ToughJetServiceBean implements ToughJetService {
      */
     private String getReturnDateStr(ToughJetFlightResponse flight) {
 
-        return DateUitls.getStringDateISOFormat(flight.getReturnYear(), flight.getReturnMonth(), flight.getReturnDay(), DateUitls.ISO8601_FORMAT);
+        return DateUtils.getStringDateISOFormat(flight.getReturnYear(), flight.getReturnMonth(), flight.getReturnDay(), DateUtils.ISO8601_FORMAT);
     }
 
     /**
@@ -131,8 +131,8 @@ public class ToughJetServiceBean implements ToughJetService {
      */
     private String getReturnDateStr(ToughJetFlightRequest toughJetRequest) {
 
-        return DateUitls.getStringDateISOFormat(toughJetRequest.getReturnYear(), toughJetRequest.getReturnMonth(), toughJetRequest.getReturnDay(),
-                DateUitls.ISO8601_FORMAT);
+        return DateUtils.getStringDateISOFormat(toughJetRequest.getReturnYear(), toughJetRequest.getReturnMonth(), toughJetRequest.getReturnDay(),
+                DateUtils.ISO8601_FORMAT);
     }
 
     /**
@@ -140,8 +140,8 @@ public class ToughJetServiceBean implements ToughJetService {
      */
     private String getDepartureDateStr(ToughJetFlightRequest toughJetRequest) {
 
-        return DateUitls.getStringDateISOFormat(toughJetRequest.getDepartureYear(), toughJetRequest.getDepartureMonth(), toughJetRequest.getDepartureDay(),
-                DateUitls.ISO8601_FORMAT);
+        return DateUtils.getStringDateISOFormat(toughJetRequest.getDepartureYear(), toughJetRequest.getDepartureMonth(), toughJetRequest.getDepartureDay(),
+                DateUtils.ISO8601_FORMAT);
     }
 
     /**
@@ -149,8 +149,8 @@ public class ToughJetServiceBean implements ToughJetService {
      */
     private String getDepartureDateStr(ToughJetFlightResponse toughJetResponse) {
 
-        return DateUitls.getStringDateISOFormat(toughJetResponse.getDepartureYear(), toughJetResponse.getDepartureMonth(), toughJetResponse.getDepartureDay(),
-                DateUitls.ISO8601_FORMAT);
+        return DateUtils.getStringDateISOFormat(toughJetResponse.getDepartureYear(), toughJetResponse.getDepartureMonth(), toughJetResponse.getDepartureDay(),
+                DateUtils.ISO8601_FORMAT);
     }
 
 }

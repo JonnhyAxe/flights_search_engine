@@ -26,10 +26,11 @@ import org.springframework.web.client.RestTemplate;
 import com.busyflights.search_engine.services.suppliers.crazy_air.domain.CrazyAirResponse;
 import com.busyflights.search_engine.services.suppliers.enums.BusyFlightsAPIParams;
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightResponse;
-import com.busyflights.search_engine.utils.DateUitls;
+import com.busyflights.search_engine.utils.DateUtils;
 import com.busyflights.search_engine.web.domain.BusyFlightsRequest;
 import com.busyflights.search_engine.web.domain.BusyFlightsResponse;
 import com.busyflights.search_engine.web.domain.enums.Suppliers;
+
 
 /**
  * Ordered Busy Flights Service Implementation for Crazy-Air Tough-Jet Suppliers
@@ -42,7 +43,7 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
     private static final Logger LOGGER = LoggerFactory.getLogger(CrazyToughAirJetSupplierFlightsService.class);
 
     /**
-     * TODO: check if constants are defined in spring framework
+     *
      */
     private static final String HYPHEN = "-";
 
@@ -74,12 +75,12 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
 
         // considering that the url is correct
         StringBuilder urlEntity = new StringBuilder(urlStr);
-        LocalDate departureLocaleDate = DateUitls.getLocalDateFromStringDateFormat(busyFlightsReq.getDepartureDate(), DateUitls.ISO8601_FORMAT);
-        LocalDate retureLocaleDate = DateUitls.getLocalDateFromStringDateFormat(busyFlightsReq.getReturnDate(), DateUitls.ISO8601_FORMAT);
-        String departureDate = DateUitls.getStringDateISOFormat(departureLocaleDate.getYear(), departureLocaleDate.getMonthValue(), departureLocaleDate.getDayOfMonth(),
-                DateUitls.MM_DD_YYYY_Format);
-        String returnDate = DateUitls.getStringDateISOFormat(retureLocaleDate.getYear(), retureLocaleDate.getMonthValue(),
-                retureLocaleDate.getDayOfMonth(), DateUitls.MM_DD_YYYY_Format);
+        LocalDate departureLocaleDate = DateUtils.getLocalDateFromStringDateFormat(busyFlightsReq.getDepartureDate(), DateUtils.ISO8601_FORMAT);
+        LocalDate retureLocaleDate = DateUtils.getLocalDateFromStringDateFormat(busyFlightsReq.getReturnDate(), DateUtils.ISO8601_FORMAT);
+        String departureDate = DateUtils.getStringDateISOFormat(departureLocaleDate.getYear(), departureLocaleDate.getMonthValue(), departureLocaleDate.getDayOfMonth(),
+                DateUtils.MM_DD_YYYY_Format);
+        String returnDate = DateUtils.getStringDateISOFormat(retureLocaleDate.getYear(), retureLocaleDate.getMonthValue(),
+                retureLocaleDate.getDayOfMonth(), DateUtils.MM_DD_YYYY_Format);
         urlEntity.append(QUERY_PARAM)
                 .append(BusyFlightsAPIParams.ORIGIN.getName()).append(SIGN_PARAM).append(busyFlightsReq.getOrigin()).append(AND_PARAM)
                 .append(BusyFlightsAPIParams.DESTINATION.getName()).append(SIGN_PARAM).append(busyFlightsReq.getDestination()).append(AND_PARAM)
@@ -94,9 +95,8 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
         // considering that the url is correct
 
         StringBuilder urlEntity = new StringBuilder(urlStr);
-        // TODO : change to getStringDateISOFormat(... DateUitls.ISO8601))
-        LocalDate departureLocalDate = DateUitls.getLocalDateFromStringDateFormat(busyFlightsReq.getDepartureDate(), DateUitls.ISO8601_FORMAT);
-        LocalDate returnLocalDate = DateUitls.getLocalDateFromStringDateFormat(busyFlightsReq.getReturnDate(), DateUitls.ISO8601_FORMAT);
+        LocalDate departureLocalDate = DateUtils.getLocalDateFromStringDateFormat(busyFlightsReq.getDepartureDate(), DateUtils.ISO8601_FORMAT);
+        LocalDate returnLocalDate = DateUtils.getLocalDateFromStringDateFormat(busyFlightsReq.getReturnDate(), DateUtils.ISO8601_FORMAT);
 
 
         Integer departureDay = departureLocalDate.getDayOfMonth();
@@ -122,28 +122,32 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
 
     Function<CrazyAirResponse, BusyFlightsResponse> convertCrazyAirToBusyFlights = (crazy) -> {
 
+        LocalDate departureLocaleDate = DateUtils.getLocalDateFromStringDateFormat(crazy.getDepartureDate(), DateUtils.MM_DD_YYYY_HHMMSS_FORMAT);
+        String isoDepartureDate = DateUtils.getStringDateISOFormat(departureLocaleDate.getYear(), departureLocaleDate.getMonthValue(),
+                departureLocaleDate.getDayOfMonth(), 0, 0, 0, DateUtils.ISO8601_FORMAT);
+
+        LocalDate arrivalLocaleDate = DateUtils.getLocalDateFromStringDateFormat(crazy.getArrivalDate(), DateUtils.MM_DD_YYYY_HHMMSS_FORMAT);
+        String isoArrivalDate = DateUtils.getStringDateISOFormat(arrivalLocaleDate.getYear(), arrivalLocaleDate.getMonthValue(),
+                arrivalLocaleDate.getDayOfMonth(), 0, 0, 0, DateUtils.ISO8601_FORMAT);
+
         return new BusyFlightsResponse.Builder()
                 .airline(crazy.getAirline())
                 .supplier(Suppliers.CRAZY_AIR.name())
                 .fare(crazy.getPrice())
-                .arrivalDate(crazy.getArrivalDate())
+                .arrivalDate(isoArrivalDate)
+                .departureDate(isoDepartureDate)
                 .departureAirportCode(crazy.getDepartureAirportCode())
                 .destinationAirportCode(crazy.getDestinationAirportCode())
-                .destinationAirportCode(crazy.getDestinationAirportCode())
-                .departureDate(crazy.getDepartureDate())
-                .arrivalDate(crazy.getArrivalDate())
                 .build();
     };
 
     Function<ToughJetFlightResponse, BusyFlightsResponse> convertToughJetToBusyFlights = (tough) -> {
 
-        StringBuilder departureDate = new StringBuilder().append(tough.getDepartureYear()).append(HYPHEN)
-                .append(tough.getDepartureMonth()).append(HYPHEN)
-                .append(tough.getDepartureDay());
+        String isoDepartureDate = DateUtils.getStringDateISOFormat(tough.getDepartureYear(), tough.getDepartureMonth(),
+                tough.getDepartureDay(), 0, 0, 0, DateUtils.ISO8601_FORMAT);
 
-        StringBuilder arrivalDate = new StringBuilder().append(tough.getReturnYear()).append(HYPHEN)
-                .append(tough.getReturnMonth()).append(HYPHEN)
-                .append(tough.getReturnDay());
+        String isoArrivalDate = DateUtils.getStringDateISOFormat(tough.getReturnYear(), tough.getReturnMonth(),
+                tough.getReturnDay(), 0, 0, 0, DateUtils.ISO8601_FORMAT);
 
         return new BusyFlightsResponse.Builder()
                 .airline(tough.getCarrier())
@@ -152,8 +156,8 @@ public class CrazyToughAirJetSupplierFlightsService implements OrderedBusyFlight
                 // .arrivalDate(tough.get())
                 .departureAirportCode(tough.getDepartureAirportName())
                 .destinationAirportCode(tough.getArrivalAirportName())
-                .departureDate(departureDate.toString())
-                .arrivalDate(arrivalDate.toString())
+                .departureDate(isoDepartureDate)
+                .arrivalDate(isoArrivalDate)
                 .build();
     };
 

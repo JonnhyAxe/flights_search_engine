@@ -17,7 +17,7 @@ import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlighTime
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightRequest;
 import com.busyflights.search_engine.services.tough_jet.domain.ToughJetFlightResponse;
 import com.busyflights.search_engine.services.tough_jet.service.ToughJetService;
-import com.busyflights.search_engine.utils.DateUitls;
+import com.busyflights.search_engine.utils.DateUtils;
 
 
 @RequestMapping("/tough-jet") // hyphens are OK
@@ -38,24 +38,24 @@ public class ToughJetController {
             @Size(min = 3, max = 3)
             final String to,
             @RequestParam
-            @Range(min = DateUitls.MINIMUM_DAY, max = DateUitls.MAX_DAY)
+            @Range(min = DateUtils.MINIMUM_DAY, max = DateUtils.MAX_DAY)
             final int departureDay,
             @RequestParam
-            @Range(min = DateUitls.MINIMUM_MONTH, max = DateUitls.MAX_MONTH)
+            @Range(min = DateUtils.MINIMUM_MONTH, max = DateUtils.MAX_MONTH)
             final int departureMonth,
             @RequestParam
-            @Range(min = DateUitls.MINIMUM_YEAR, max = Integer.MAX_VALUE)
+            @Range(min = DateUtils.MINIMUM_YEAR, max = Integer.MAX_VALUE)
             final int departureYear,
             @RequestParam
-            @Range(min = DateUitls.MINIMUM_DAY, max = DateUitls.MAX_DAY)
+            @Range(min = DateUtils.MINIMUM_DAY, max = DateUtils.MAX_DAY)
             @Null
             final int returnDay,
             @RequestParam
-            @Range(min = DateUitls.MINIMUM_MONTH, max = DateUitls.MINIMUM_MONTH)
+            @Range(min = DateUtils.MINIMUM_MONTH, max = DateUtils.MINIMUM_MONTH)
             @Null
             final int returnMonth,
             @RequestParam
-            @Range(min = DateUitls.MINIMUM_YEAR, max = Integer.MAX_VALUE)
+            @Range(min = DateUtils.MINIMUM_YEAR, max = Integer.MAX_VALUE)
             @Null
             final int returnYear,
             @RequestParam

@@ -4,7 +4,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Busy Flights API Response Model
@@ -92,23 +91,19 @@ public class BusyFlightsResponse {
     private Double fare;
 
     @NotEmpty
-    @NotNull
+
     @Size(min = 3, max = 3)
     private String departureAirportCode;
 
     @NotEmpty
-    @NotNull
+
     @Size(min = 3, max = 3)
     private String destinationAirportCode;
 
     @NotEmpty
-    @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.NONE)
     private String departureDate;
 
     @NotEmpty
-    @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.NONE)
     private String arrivalDate;
 
     public BusyFlightsResponse() {

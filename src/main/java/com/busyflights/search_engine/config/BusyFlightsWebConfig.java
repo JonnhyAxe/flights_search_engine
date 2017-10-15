@@ -3,6 +3,8 @@ package com.busyflights.search_engine.config;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,7 +30,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Busy Flights web layer config
  *
  */
-@ComponentScan("com.busyflighs.web.*")
+@ComponentScan("com.busyflighs.*")
 @EnableSwagger2
 @Configuration
 public class BusyFlightsWebConfig extends WebMvcConfigurationSupport {
@@ -52,7 +54,7 @@ public class BusyFlightsWebConfig extends WebMvcConfigurationSupport {
     }
 
     @Bean // Enabling and configuring Swagger
-    public Docket mainConfig() { // @formatter:off
+    public Docket mainConfig() {
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .select().apis(RequestHandlerSelectors.any())
@@ -60,12 +62,8 @@ public class BusyFlightsWebConfig extends WebMvcConfigurationSupport {
                 .build()
                 .pathMapping("/")
                 .directModelSubstitute(LocalDate.class, String.class)
-                .genericModelSubstitutes(ResponseEntity.class); // The model
-                                                                // data rather
-                                                                // Spring
-                                                                // specific
-                                                                // artifacts
-    }// @formatter:on
+                .genericModelSubstitutes(ResponseEntity.class);
+    }
 
     //
 
@@ -86,6 +84,12 @@ public class BusyFlightsWebConfig extends WebMvcConfigurationSupport {
         executor.setThreadNamePrefix("BusyFlights-");
         executor.initialize();
         return executor;
+    }
+
+    @Bean
+    public ExecutorService getExecutor() {
+
+        return Executors.newFixedThreadPool(4);
     }
 
 }

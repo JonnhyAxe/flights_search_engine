@@ -14,7 +14,7 @@ import com.busyflights.search_engine.services.enums.Airports;
 import com.busyflights.search_engine.services.suppliers.crazy_air.domain.CrazyAirRequest;
 import com.busyflights.search_engine.services.suppliers.crazy_air.domain.CrazyAirResponse;
 import com.busyflights.search_engine.services.suppliers.crazy_air.domain.enums.CabinClass;
-import com.busyflights.search_engine.utils.DateUitls;
+import com.busyflights.search_engine.utils.DateUtils;
 
 /**
  * Crazy Air Service Bean
@@ -33,8 +33,8 @@ public class CrazyAirServiceBean implements CrazyAirService {
                 .airline(AirLines.TAP.name())
                 .departureAirportCode(Airports.OPO.name())
                 .destinationAirportCode(Airports.LIS.name())
-                .departureDate(DateUitls.getStringDateISOFormat(2017, 10, 14, 0, 0, 0, DateUitls.MM_DD_YYYY_HHMMSS_FORMAT))
-                .arrivalDate(DateUitls.getStringDateISOFormat(2017, 10, 15, 0, 0, 0, DateUitls.MM_DD_YYYY_HHMMSS_FORMAT))
+                .departureDate(DateUtils.getStringDateISOFormat(2017, 10, 14, 0, 0, 0, DateUtils.MM_DD_YYYY_HHMMSS_FORMAT))
+                .arrivalDate(DateUtils.getStringDateISOFormat(2017, 10, 15, 0, 0, 0, DateUtils.MM_DD_YYYY_HHMMSS_FORMAT))
                 .price(13.66)
                 .cabinclass(CabinClass.B);
 
@@ -44,8 +44,8 @@ public class CrazyAirServiceBean implements CrazyAirService {
                 .airline(AirLines.TAP.name())
                 .departureAirportCode(Airports.OPO.name())
                 .destinationAirportCode(Airports.LIS.name())
-                .departureDate(DateUitls.getStringDateISOFormat(2017, 10, 14, 0, 0, 0, DateUitls.MM_DD_YYYY_HHMMSS_FORMAT))
-                .arrivalDate(DateUitls.getStringDateISOFormat(2017, 10, 16, 0, 0, 0, DateUitls.MM_DD_YYYY_HHMMSS_FORMAT))
+                .departureDate(DateUtils.getStringDateISOFormat(2017, 10, 14, 0, 0, 0, DateUtils.MM_DD_YYYY_HHMMSS_FORMAT))
+                .arrivalDate(DateUtils.getStringDateISOFormat(2017, 10, 16, 0, 0, 0, DateUtils.MM_DD_YYYY_HHMMSS_FORMAT))
                 .price(1.66)
                 .cabinclass(CabinClass.B);
 
@@ -55,8 +55,8 @@ public class CrazyAirServiceBean implements CrazyAirService {
                 .airline(AirLines.TAP.name())
                 .departureAirportCode(Airports.OPO.name())
                 .destinationAirportCode(Airports.LIS.name())
-                .departureDate(DateUitls.getStringDateISOFormat(2017, 10, 14, 0, 0, 0, DateUitls.MM_DD_YYYY_HHMMSS_FORMAT))
-                .arrivalDate(DateUitls.getStringDateISOFormat(2017, 10, 17, 0, 0, 0, DateUitls.MM_DD_YYYY_HHMMSS_FORMAT))
+                .departureDate(DateUtils.getStringDateISOFormat(2017, 10, 14, 0, 0, 0, DateUtils.MM_DD_YYYY_HHMMSS_FORMAT))
+                .arrivalDate(DateUtils.getStringDateISOFormat(2017, 10, 17, 0, 0, 0, DateUtils.MM_DD_YYYY_HHMMSS_FORMAT))
                 .price(12.66)
                 .cabinclass(CabinClass.B);
 

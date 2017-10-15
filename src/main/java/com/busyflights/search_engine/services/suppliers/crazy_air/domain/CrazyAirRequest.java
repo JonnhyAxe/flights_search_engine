@@ -2,9 +2,9 @@ package com.busyflights.search_engine.services.suppliers.crazy_air.domain;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
 /**
@@ -76,12 +76,10 @@ public class CrazyAirRequest implements Serializable {
     @Size(min=3, max=3)
     private String destination;
 
-    // @Pattern(regexp =
-    // "/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/")
-    @Pattern(regexp = "^(0[0-9]||1[0-2])-([0-2][0-9]||3[0-1])-([0-9][0-9])?[0-9][0-9]$")
+    @NotEmpty
     private String departureDate;
 
-    @Pattern(regexp = "^(0[0-9]||1[0-2])-([0-2][0-9]||3[0-1])-([0-9][0-9])?[0-9][0-9]$")
+    @NotEmpty
     private String returnDate;
 
     @Range(min = 1, max = 4)
